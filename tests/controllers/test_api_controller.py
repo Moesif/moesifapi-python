@@ -9,6 +9,7 @@
 import jsonpickle
 from .controller_test_base import *
 from moesifapi.models import *
+from datetime import *
 
 class ApiControllerTests(ControllerTestBase):
 
@@ -60,7 +61,7 @@ class ApiControllerTests(ControllerTestBase):
     		}""")
 
 
-        event_req = EventRequestModel(time = "2016-09-09T04:45:42.914",
+        event_req = EventRequestModel(time = datetime.utcnow() - timedelta(seconds=-1),
             uri = "https://api.acmeinc.com/items/reviews/",
             verb = "PATCH",
             api_version = "1.1.0",
@@ -68,7 +69,7 @@ class ApiControllerTests(ControllerTestBase):
             headers = req_headers,
             body = req_body)
 
-        event_rsp = EventResponseModel(time = "2016-09-09T04:45:42.914",
+        event_rsp = EventResponseModel(time = datetime.utcnow(),
             status = 500,
             headers = rsp_headers,
             body = rsp_body)
