@@ -6,9 +6,7 @@ MoesifApi Lib for Python
 This SDK uses the Requests library and will work for Python 2.7 — 3.5.
 
 __Check out Moesif's
-[Python developer documentation](https://www.moesif.com/developer-documentation) to learn more__
-
-(Documentation access requires an active account)
+[Python developer documentation](https://www.moesif.com/developer-documentation/?python) to learn more__
 
 How to install:
 ===============
