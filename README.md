@@ -5,8 +5,12 @@ MoesifApi Lib for Python
 
 This SDK uses the Requests library and will work for Python 2.7 — 3.5.
 
+If you are using Django as your platform, we have [moesifdjango](https://github.com/Moesif/moesifdjango) middleware, you can use that middleware directly. 
+
 __Check out Moesif's
 [Python developer documentation](https://www.moesif.com/developer-documentation/?python) to learn more__
+
+
 
 How to install:
 ===============
