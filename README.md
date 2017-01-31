@@ -1,26 +1,24 @@
-MoesifApi Lib for Python
-========================
+# MoesifApi Lib for Python
 
 [Source Code on GitHub](https://github.com/moesif/moesifapi-python)
+
+[Package on PyPI](https://pypi.python.org/pypi/moesifapi)
 
 This SDK uses the Requests library and will work for Python 2.7 — 3.5.
 
 If you are using Django as your platform, we have [moesifdjango](https://github.com/Moesif/moesifdjango) middleware, you can use that middleware directly. 
 
-__Check out Moesif's
-[Python developer documentation](https://www.moesif.com/developer-documentation/?python) to learn more__
+__Check out Moesif's [Developer Documentation](https://www.moesif.com/docs) and [Python API Reference](https://www.moesif.com/docs/api?python) to learn more__
 
 
-
-How to install:
-===============
+## How to install:
 
 ```
 pip install moesifapi
 ```
 
-How to use:
-===========
+## How to use:
+
 The code uses Python packages named requests, jsonpickle and dateutil.
 After having resolved the dependencies, you can easily use the SDK following these steps.
 
@@ -98,8 +96,8 @@ api_client.create_event(event_model)
 controller.create_event(my_api_event_model)
 ```
 
-How  to test:
-=============
+## How  to test:
+
 You can test the SDK with automatically generated test
 cases. unittest is used as the testing framework and nose is used as the test
 runner. You can run the tests as follows:
