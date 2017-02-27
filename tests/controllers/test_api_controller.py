@@ -96,3 +96,24 @@ class ApiControllerTests(ControllerTestBase):
 
         # Test response code
         self.assertEquals(self.response_catcher.response.status_code, 201)
+
+    # Update Single User via Injestion API
+    def test_update_user(self):
+        # Parameters for the API call
+
+        metadata = APIHelper.json_deserialize("""  {
+                "email": "pythonapiuser@email.com",
+                "name": "pythonapiuser",
+                "custom": "testdata"
+            } """)
+
+        user_model = UserModel(
+            user_id = 'pythonapiuser1',
+            modified_time = datetime.utcnow(),
+            metadata = metadata)
+
+        # Perform the API call through the SDK function
+        self.controller.update_user(user_model)
+
+        # Test response code
+        self.assertEquals(self.response_catcher.response.status_code, 201)

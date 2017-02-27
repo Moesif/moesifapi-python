@@ -6,7 +6,7 @@
 
 This SDK uses the Requests library and will work for Python 2.7 — 3.5.
 
-If you are using Django as your platform, we have [moesifdjango](https://github.com/Moesif/moesifdjango) middleware, you can use that middleware directly. 
+If you are using Django as your platform, we have [moesifdjango](https://github.com/Moesif/moesifdjango) middleware, you can use that middleware directly.
 
 __Check out Moesif's [Developer Documentation](https://www.moesif.com/docs) and [Python API Reference](https://www.moesif.com/docs/api?python) to learn more__
 
@@ -96,6 +96,29 @@ api_client.create_event(event_model)
 controller.create_event(my_api_event_model)
 ```
 
+### update_user
+
+The api also let you update a user profile with custom metadata.
+The user_id is a required fields, all other fields are optional.
+
+```python
+metadata = APIHelper.json_deserialize("""  {
+        "email": "pythonapiuser@email.com",
+        "name": "pythonapiuser",
+        "custom": "testdata"
+    } """)
+
+
+user_model = EventRequestModel(
+    user_id = 'pythonapiuser1',
+    modified_time = datetime.utcnow(),
+    metadata = metadata)
+
+# Perform the API call through the SDK function
+controller.update_user(user_model)
+
+```
+
 ## How  to test:
 
 You can test the SDK with automatically generated test
@@ -105,4 +128,5 @@ runner. You can run the tests as follows:
   1. Manually clone the git repo
   2. From terminal/cmd navigate to the root directory of the SDK.
   3. Invoke 'pip install -r requirements.txt'
-  4. Invoke 'nosetests tests/controllers/test_api_controller.py'
+  4. Add your own application id to 'test/controllers/controller_test_base'
+  5. Invoke 'nosetests tests/controllers/test_api_controller.py'
