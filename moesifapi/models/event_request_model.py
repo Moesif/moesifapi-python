@@ -34,8 +34,8 @@ class EventRequestModel(BaseModel):
                  headers = None,
                  api_version = None,
                  ip_address = None,
-                 transfer_encoding,
-                 body = None):
+                 body = None,
+                 transfer_encoding = None):
         """Constructor for the EventRequestModel class"""
 
         # Initialize members of the class
@@ -45,8 +45,8 @@ class EventRequestModel(BaseModel):
         self.headers = headers
         self.api_version = api_version
         self.ip_address = ip_address
-        self.transfer_encoding = transfer_encoding
         self.body = body
+        self.transfer_encoding = transfer_encoding
 
         # Create a mapping from Model property names to API property names
         self.names = {
@@ -56,8 +56,8 @@ class EventRequestModel(BaseModel):
             "headers" : "headers",
             "api_version" : "api_version",
             "ip_address" : "ip_address",
-            "transfer_encoding" : "transfer_encoding",
             "body" : "body",
+            "transfer_encoding" : "transfer_encoding",
         }
 
 
@@ -85,8 +85,8 @@ class EventRequestModel(BaseModel):
             headers = dictionary.get("headers")
             api_version = dictionary.get("api_version")
             ip_address = dictionary.get("ip_address")
-            transfer_encoding = dictionary.get("transfer_encoding")
             body = dictionary.get("body")
+            transfer_encoding = dictionary.get("transfer_encoding")
             # Return an object of this model
             return cls(time,
                        uri,
@@ -94,5 +94,5 @@ class EventRequestModel(BaseModel):
                        headers,
                        api_version,
                        ip_address,
-                       transfer_encoding,
-                       body)
+                       body,
+                       transfer_encoding)
