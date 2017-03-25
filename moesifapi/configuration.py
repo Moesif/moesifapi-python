@@ -12,4 +12,4 @@ class Configuration(object):
 
     # Your Application Id for authentication/authorization
     application_id = 'SET_ME';
-    version = '1.1.0'
+    version = '1.2.0'

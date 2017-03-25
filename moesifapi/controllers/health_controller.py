@@ -48,7 +48,7 @@ class HealthController(BaseController):
         _headers = {
             'accept': 'application/json',
             'X-Moesif-Application-Id': Configuration.application_id,
-            'X-Moesif-Application-Id': Configuration.application_id
+            'User-Agent': 'moesifapi-python/' + Configuration.version
         }
 
         # Prepare the API call.
