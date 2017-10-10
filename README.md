@@ -69,6 +69,12 @@ rsp_body = APIHelper.json_deserialize( """{
     "Message": "Missing field field_a"
   }""")
 
+metadata = APIHelper.json_deserialize("""{
+    "field1": "foo",
+    "field2": "bar"
+  }""")
+
+
 
 event_req = EventRequestModel(time = "2016-09-09T04:45:42.914",
     uri = "https://api.acmeinc.com/items/reviews/",
@@ -86,7 +92,8 @@ event_rsp = EventResponseModel(time = "2016-09-09T04:45:42.914",
 event_model = EventModel(request = event_req,
     response = event_rsp,
     user_id = "my_user_id",
-    session_token = "23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f")
+    session_token = "23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f",
+    metadata = metadata)
 
 
 # Perform the API call through the SDK function
