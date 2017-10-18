@@ -100,7 +100,7 @@ event_model = EventModel(request = event_req,
 api_client.create_event(event_model)
 
 
-controller.create_event(my_api_event_model)
+api_client.create_event(my_api_event_model)
 ```
 
 ### update_user
@@ -122,7 +122,7 @@ user_model = EventRequestModel(
     metadata = metadata)
 
 # Perform the API call through the SDK function
-controller.update_user(user_model)
+api_client.update_user(user_model)
 
 ```
 
