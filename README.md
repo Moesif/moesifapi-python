@@ -116,7 +116,7 @@ metadata = APIHelper.json_deserialize("""  {
     } """)
 
 
-user_model = EventRequestModel(
+user_model = UserModel(
     user_id = 'pythonapiuser1',
     modified_time = datetime.utcnow(),
     metadata = metadata)
