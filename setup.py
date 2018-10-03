@@ -34,7 +34,7 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://www.moesif.com/developer-documentation',
+    url='https://www.moesif.com/docs/api?python#api-libs',
 
     # Author details
     author='Moesif, Inc',
@@ -81,7 +81,8 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['requests', 'jsonpickle', 'python-dateutil', 'isodatetimehandler'],
+    install_requires=['requests', 'jsonpickle',
+                      'python-dateutil', 'isodatetimehandler'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
