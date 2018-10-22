@@ -1,12 +1,16 @@
 # MoesifApi Lib for Python
 
-[Source Code on GitHub](https://github.com/moesif/moesifapi-python)
+[![Built For][ico-built-for]][link-built-for]
+[![Latest Version][ico-version]][link-package]
+[![Language Versions][ico-language]][link-language]
+[![Software License][ico-license]][link-license]
+[![Source Code][ico-source]][link-source]
 
-[Package on PyPI](https://pypi.python.org/pypi/moesifapi)
+[Source Code on GitHub](https://github.com/moesif/moesifapi-python)
 
 This SDK uses the Requests library and will work for Python 2.7 — 3.5.
 
-If you are using Django as your platform, we have [moesifdjango](https://github.com/Moesif/moesifdjango) middleware, you can use that middleware directly.
+If you are using Django as your platform, we have [moesifapi-python](https://github.com/Moesif/moesifapi-python) middleware, you can use that middleware directly.
 
 __Check out Moesif's [Developer Documentation](https://www.moesif.com/docs) and [Python API Reference](https://www.moesif.com/docs/api?python) to learn more__
 
@@ -137,3 +141,15 @@ runner. You can run the tests as follows:
   3. Invoke 'pip install -r requirements.txt'
   4. Add your own application id to 'test/controllers/controller_test_base'
   5. Invoke 'nosetests tests/controllers/test_api_controller.py'
+
+  [ico-built-for]: https://img.shields.io/badge/built%20for-python-blue.svg
+  [ico-version]: https://img.shields.io/pypi/v/moesifapi.svg
+  [ico-language]: https://img.shields.io/pypi/pyversions/moesifapi.svg
+  [ico-license]: https://img.shields.io/badge/License-Apache%202.0-green.svg
+  [ico-source]: https://img.shields.io/github/last-commit/moesif/moesifapi-python.svg?style=social
+
+  [link-built-for]: https://github.com/rack/rack
+  [link-package]: https://pypi.python.org/pypi/moesifapi
+  [link-language]: https://pypi.python.org/pypi/moesifapi
+  [link-license]: https://raw.githubusercontent.com/Moesif/moesifapi-python/master/LICENSE
+  [link-source]: https://github.com/Moesif/moesifapi-python
