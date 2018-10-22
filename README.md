@@ -148,7 +148,7 @@ runner. You can run the tests as follows:
   [ico-license]: https://img.shields.io/badge/License-Apache%202.0-green.svg
   [ico-source]: https://img.shields.io/github/last-commit/moesif/moesifapi-python.svg?style=social
 
-  [link-built-for]: https://github.com/rack/rack
+  [link-built-for]: https://www.python.org/
   [link-package]: https://pypi.python.org/pypi/moesifapi
   [link-language]: https://pypi.python.org/pypi/moesifapi
   [link-license]: https://raw.githubusercontent.com/Moesif/moesifapi-python/master/LICENSE
