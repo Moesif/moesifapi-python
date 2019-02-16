@@ -3,3 +3,4 @@ from .event_model import *
 from .event_response_model import *
 from .status_model import *
 from .user_model import *
+from .company_model import *
