@@ -199,7 +199,7 @@ class ApiController(BaseController):
                             body):
         """Does a POST request to /v1/users/batch.
 
-        Add multiple API Events in a single batch (batch size must be less
+        Update multiple Users in a single batch (batch size must be less
         than 250kb)
 
         Args:
@@ -308,11 +308,11 @@ class ApiController(BaseController):
 
         return _response
 
-    def add_company(self,
-                    body):
+    def update_company(self,
+                       body):
         """Does a POST request to /v1/companies.
 
-        Add a single company
+        Update a single company
 
         Args:
             body (CompanyModel): TODO: type description here. Example:
@@ -364,11 +364,11 @@ class ApiController(BaseController):
         # Global error handling using HTTP status codes.
         self.validate_response(_context)
 
-    def add_companies_batch(self,
-                            body):
+    def update_companies_batch(self,
+                               body):
         """Does a POST request to /v1/companies/batch.
 
-        Add multiple companies in a single batch (batch size must be less
+        Update multiple companies in a single batch (batch size must be less
         than 250kb)
 
         Args:

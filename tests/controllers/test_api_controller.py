@@ -139,27 +139,27 @@ class ApiControllerTests(ControllerTestBase):
         self.assertIsNotNone(response["headers"]["X-Moesif-Config-ETag"])
 
     #  Add Single company via Injestion API
-    def test_add_company(self):
+    def test_update_company(self):
         # Parameter for the API call
         company_model = CompanyModel(
             company_id="1",
             modified_time=datetime.utcnow())
 
         # Perform the API call through the SDK function
-        self.controller.add_company(company_model)
+        self.controller.update_company(company_model)
 
         # Test Response code
         self.assertEquals(self.response_catcher.response.status_code, 201)
 
     # Add Batched Companies via Ingestion API
-    def test_add_companies_batch(self):
+    def test_update_companies_batch(self):
         # Parameter for the API call
         body = [CompanyModel(company_id="1", modified_time=datetime.utcnow(), company_domain="moesif"),
                 CompanyModel(company_id="2", modified_time=datetime.utcnow(), company_domain="moesif",
                              metadata=APIHelper.json_deserialize(""" {"string_field": "value_1", "number_field": 0 } """))]
 
         # Perform the API call through the SDK function
-        self.controller.add_companies_batch(body)
+        self.controller.update_companies_batch(body)
 
         # Test Response code
         self.assertEquals(self.response_catcher.response.status_code, 201)

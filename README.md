@@ -130,6 +130,27 @@ api_client.update_user(user_model)
 
 ```
 
+### update_company
+
+The api also let you update a company information with custom metadata.
+The company_id is a required field, all other fields are optional.
+
+```python
+metadata = APIHelper.json_deserialize("""  {
+        "email": "pythonapiuser@email.com",
+        "name": "pythonapiuser",
+        "location": "United States"
+    } """)
+
+company_model = CompanyModel(
+            company_id='1',
+            modified_time=datetime.utcnow(),
+            metadata=metadata)
+
+# Perform the API call through the SDK function
+self.controller.update_company(company_model)
+```
+
 ## How  to test:
 
 You can test the SDK with automatically generated test
