@@ -130,7 +130,7 @@ api_client.update_user(user_model)
 
 ```
 
-### add_company
+### update_company
 
 The api also let you update a company information with custom metadata.
 The company_id is a required field, all other fields are optional.
@@ -148,7 +148,7 @@ company_model = CompanyModel(
             metadata=metadata)
 
 # Perform the API call through the SDK function
-self.controller.add_company(company_model)
+self.controller.update_company(company_model)
 ```
 
 ## How  to test:
