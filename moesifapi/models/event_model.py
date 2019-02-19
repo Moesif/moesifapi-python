@@ -30,6 +30,7 @@ class EventModel(BaseModel):
                  session_token = None,
                  tags = None,
                  user_id = None,
+                 company_id=None,
                  metadata = None):
         """Constructor for the EventModel class"""
 
@@ -39,6 +40,7 @@ class EventModel(BaseModel):
         self.session_token = session_token
         self.tags = tags
         self.user_id = user_id
+        self.company_id = company_id
         self.metadata = metadata
 
         # Create a mapping from Model property names to API property names
@@ -48,6 +50,7 @@ class EventModel(BaseModel):
             "session_token" : "session_token",
             "tags" : "tags",
             "user_id" : "user_id",
+            "company_id" : "company_id",
             "metadata" : "metadata"
         }
 
@@ -75,6 +78,7 @@ class EventModel(BaseModel):
             session_token = dictionary.get("session_token")
             tags = dictionary.get("tags")
             user_id = dictionary.get("user_id")
+            company_id = dictionary.get("company_id")
             metadata = dictionary.get("metadata")
             # Return an object of this model
             return cls(request,
@@ -82,4 +86,5 @@ class EventModel(BaseModel):
                        session_token,
                        tags,
                        user_id,
+                       company_id,
                        metadata)
