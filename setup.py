@@ -13,7 +13,6 @@ from setuptools import setup, find_packages
 # To use a consistent encoding
 from codecs import open
 from os import path
-import register
 
 here = path.abspath(path.dirname(__file__))
 
@@ -34,6 +33,7 @@ setup(
 
     description='Moesif API Lib for Python',
     long_description=long_description,
+    long_description_content_type="text/markdown",
 
     # The project's main homepage.
     url='https://www.moesif.com/docs/api?python#api-libs',
