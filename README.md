@@ -96,6 +96,7 @@ event_rsp = EventResponseModel(time = "2016-09-09T04:45:42.914",
 event_model = EventModel(request = event_req,
     response = event_rsp,
     user_id = "my_user_id",
+    company_id = "my_company_id",
     session_token = "23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f",
     metadata = metadata)
 
@@ -121,7 +122,8 @@ metadata = APIHelper.json_deserialize("""  {
 
 
 user_model = UserModel(
-    user_id = 'pythonapiuser1',
+    user_id = '12345',
+    company_id = '67890',
     modified_time = datetime.utcnow(),
     metadata = metadata)
 
@@ -143,7 +145,7 @@ metadata = APIHelper.json_deserialize("""  {
     } """)
 
 company_model = CompanyModel(
-            company_id='1',
+            company_id='67890',
             modified_time=datetime.utcnow(),
             metadata=metadata)
 

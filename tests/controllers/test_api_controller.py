@@ -47,7 +47,7 @@ class ApiControllerTests(ControllerTestBase):
     		}""")
 
         rsp_headers = APIHelper.json_deserialize("""  {
-    			"Date": "Tue, 23 Aug 2016 23:46:49 GMT",
+    			"Date": "Tue, 20 Aug 2019 23:46:49 GMT",
     			"Vary": "Accept-Encoding",
     			"Pragma": "no-cache",
     			"Expires": "-1",
@@ -67,7 +67,7 @@ class ApiControllerTests(ControllerTestBase):
 
 
         event_req = EventRequestModel(time = datetime.utcnow() - timedelta(seconds=1),
-            uri = "https://api.acmeinc.com/items/reviews/",
+            uri = "https://api.acmeinc.com/items/reviews?&page=0&page_size=12&region[]=Overig&sort=relevance",
             verb = "PATCH",
             api_version = "1.1.0",
             ip_address = "61.48.220.123",
@@ -75,13 +75,14 @@ class ApiControllerTests(ControllerTestBase):
             body = req_body)
 
         event_rsp = EventResponseModel(time = datetime.utcnow(),
-            status = 500,
+            status = 200,
             headers = rsp_headers,
             body = rsp_body)
 
         event_model = EventModel(request = event_req,
             response = event_rsp,
             user_id = "my_user_id",
+            company_id = "my_company_id",
             session_token = "23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f",
             metadata = metadata)
 
@@ -118,14 +119,32 @@ class ApiControllerTests(ControllerTestBase):
             } """)
 
         user_model = UserModel(
-            user_id = 'pythonapiuser1',
-            modified_time = datetime.utcnow(),
-            metadata = metadata)
+            user_id="12345",
+            company_id="67890",
+            session_token="23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f",
+            modified_time=datetime.utcnow(),
+            metadata=metadata)
 
         # Perform the API call through the SDK function
         self.controller.update_user(user_model)
 
         # Test response code
+        self.assertEquals(self.response_catcher.response.status_code, 201)
+
+    # Update Batched Users via Ingestion API
+    def test_update_users_batch(self):
+        # Parameter for the API call
+        body = [UserModel(user_id="1234", company_id="6789", modified_time=datetime.utcnow(),
+                          session_token="23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f", ),
+                UserModel(user_id="12345", company_id="67890", modified_time=datetime.utcnow(),
+                          session_token="23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f",
+                          metadata=APIHelper.json_deserialize(""" {"email": "pythonapiuser@email.com",
+                                "name": "pythonapiuser", "string_field": "value_1", "number_field": 0 } """))]
+
+        # Perform the API call through the SDK function
+        self.controller.update_users_batch(body)
+
+        # Test Response code
         self.assertEquals(self.response_catcher.response.status_code, 201)
 
     # Get Application configuration
@@ -142,7 +161,7 @@ class ApiControllerTests(ControllerTestBase):
     def test_update_company(self):
         # Parameter for the API call
         company_model = CompanyModel(
-            company_id="1",
+            company_id="67890",
             modified_time=datetime.utcnow())
 
         # Perform the API call through the SDK function
@@ -154,8 +173,8 @@ class ApiControllerTests(ControllerTestBase):
     # Add Batched Companies via Ingestion API
     def test_update_companies_batch(self):
         # Parameter for the API call
-        body = [CompanyModel(company_id="1", modified_time=datetime.utcnow(), company_domain="moesif"),
-                CompanyModel(company_id="2", modified_time=datetime.utcnow(), company_domain="moesif",
+        body = [CompanyModel(company_id="67890", modified_time=datetime.utcnow(), company_domain="moesif"),
+                CompanyModel(company_id="6789", modified_time=datetime.utcnow(), company_domain="moesif",
                              metadata=APIHelper.json_deserialize(""" {"string_field": "value_1", "number_field": 0 } """))]
 
         # Perform the API call through the SDK function
