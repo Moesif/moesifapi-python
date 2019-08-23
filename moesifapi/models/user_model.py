@@ -26,6 +26,7 @@ class UserModel(BaseModel):
 
     def __init__(self,
                  user_id = None,
+                 company_id = None,
                  modified_time = None,
                  ip_address = None,
                  session_token = None,
@@ -35,6 +36,7 @@ class UserModel(BaseModel):
 
         # Initialize members of the class
         self.user_id = user_id
+        self.company_id = company_id
         self.modified_time = modified_time
         self.ip_address = ip_address
         self.session_token = session_token
@@ -44,6 +46,7 @@ class UserModel(BaseModel):
         # Create a mapping from Model property names to API property names
         self.names = {
             "user_id" : "user_id",
+            "company_id" : "company_id",
             "modified_time" : "modified_time",
             "ip_address" : "ip_address",
             "session_token" : "session_token",
@@ -71,6 +74,7 @@ class UserModel(BaseModel):
         else:
             # Extract variables from the dictionary
             user_id = dictionary.get("user_id")
+            company_id = dictionary.get("company_id")
             modified_time = dateutil.parser.parse(dictionary.get("modified_time")) if dictionary.get("modified_time") else None
             ip_address = dictionary.get("ip_address")
             session_token = dictionary.get("session_token")
@@ -78,6 +82,7 @@ class UserModel(BaseModel):
             metadata = dictionary.get("metadata")
             # Return an object of this model
             return cls(user_id,
+                       company_id,
                        modified_time,
                        ip_address,
                        session_token,
