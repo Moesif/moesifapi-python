@@ -26,6 +26,15 @@ pip install moesifapi
 The code uses Python packages named requests, jsonpickle and dateutil.
 After having resolved the dependencies, you can easily use the SDK following these steps.
 
+Your Moesif Application Id can be found in the [_Moesif Portal_](https://www.moesif.com/).
+After signing up for a Moesif account, your Moesif Application Id will be displayed during the onboarding steps. 
+
+You can always find your Moesif Application Id at any time by logging 
+into the [_Moesif Portal_](https://www.moesif.com/), click on the top right menu,
+ and then clicking _Installation_.
+
+### Create Event
+
 ```python
 from __future__ import print_function
 from moesifapi.moesif_api_client import *
@@ -60,7 +69,7 @@ req_body = APIHelper.json_deserialize( """{
 }""")
 
 rsp_headers = APIHelper.json_deserialize("""  {
-    "Date": "Tue, 23 Aug 2016 23:46:49 GMT",
+    "Date": "Tue, 23 Aug 2019 23:46:49 GMT",
     "Vary": "Accept-Encoding",
     "Pragma": "no-cache",
     "Expires": "-1",
@@ -80,7 +89,7 @@ metadata = APIHelper.json_deserialize("""{
 
 
 
-event_req = EventRequestModel(time = "2016-09-09T04:45:42.914",
+event_req = EventRequestModel(time = "2019-09-09T04:45:42.914",
     uri = "https://api.acmeinc.com/items/reviews/",
     verb = "PATCH",
     api_version = "1.1.0",
@@ -88,15 +97,15 @@ event_req = EventRequestModel(time = "2016-09-09T04:45:42.914",
     headers = req_headers,
     body = req_body)
 
-event_rsp = EventResponseModel(time = "2016-09-09T04:45:42.914",
+event_rsp = EventResponseModel(time = "2019-09-09T04:45:42.914",
     status = 500,
     headers = rsp_headers,
     body = rsp_body)
 
 event_model = EventModel(request = event_req,
     response = event_rsp,
-    user_id = "my_user_id",
-    company_id = "my_company_id",
+    user_id = "12345",
+    company_id = "67890",
     session_token = "23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f",
     metadata = metadata)
 
@@ -108,15 +117,15 @@ api_client.create_event(event_model)
 api_client.create_event(my_api_event_model)
 ```
 
-### update_user
+### Update User
 
 The api also let you update a user profile with custom metadata.
 The user_id is a required fields, all other fields are optional.
 
 ```python
 metadata = APIHelper.json_deserialize("""  {
-        "email": "pythonapiuser@email.com",
-        "name": "pythonapiuser",
+        "email": "johndoe@email.com",
+        "name": "John Doe",
         "custom": "testdata"
     } """)
 
@@ -132,7 +141,7 @@ api_client.update_user(user_model)
 
 ```
 
-### update_company
+### Update Company
 
 The api also let you update a company information with custom metadata.
 The company_id is a required field, all other fields are optional.
@@ -153,7 +162,7 @@ company_model = CompanyModel(
 self.controller.update_company(company_model)
 ```
 
-## How  to test:
+## How to test:
 
 You can test the SDK with automatically generated test
 cases. unittest is used as the testing framework and nose is used as the test
