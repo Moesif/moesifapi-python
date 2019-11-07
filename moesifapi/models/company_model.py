@@ -7,6 +7,7 @@
 """
 import dateutil.parser
 from .base_model import BaseModel
+from .campaign_model import CampaignModel
 
 
 class CompanyModel(BaseModel):
@@ -22,6 +23,7 @@ class CompanyModel(BaseModel):
         ip_address (string): IP Address of the client if known.
         session_token (string): session token of the user if known.
         metadata (object): any custom data for the company.
+        campaign (CampaignModel): campaign object
     """
 
     def __init__(self,
@@ -30,7 +32,8 @@ class CompanyModel(BaseModel):
                  modified_time=None,
                  ip_address=None,
                  session_token=None,
-                 metadata=None):
+                 metadata=None,
+                 campaign=None):
         """Constructor for the CompanyModel class"""
 
         # Initialize members of the class
@@ -40,6 +43,7 @@ class CompanyModel(BaseModel):
         self.ip_address = ip_address
         self.session_token = session_token
         self.metadata = metadata
+        self.campaign = campaign
 
         # Create a mapping from Model property names to API property names
         self.names = {
@@ -49,6 +53,7 @@ class CompanyModel(BaseModel):
             "ip_address": "ip_address",
             "session_token": "session_token",
             "metadata": "metadata",
+            "campaign": "campaign",
         }
 
 
@@ -76,10 +81,12 @@ class CompanyModel(BaseModel):
             ip_address = dictionary.get("ip_address")
             session_token = dictionary.get("session_token")
             metadata = dictionary.get("metadata")
+            campaign = CampaignModel.from_dictionary(dictionary.get("campaign")) if dictionary.get("campaign") else None
             # Return an object of this model
             return cls(company_id,
                        company_domain,
                        modified_time,
                        ip_address,
                        session_token,
-                       metadata)
+                       metadata,
+                       campaign)

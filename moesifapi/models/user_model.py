@@ -7,6 +7,7 @@
 """
 import dateutil.parser
 from .base_model import BaseModel
+from .campaign_model import CampaignModel
 
 class UserModel(BaseModel):
 
@@ -22,6 +23,7 @@ class UserModel(BaseModel):
         user_agent_string (string): the string representation of user agent if
             available.
         metadata (object): any custom data for the user. include standard ones such as email and name.
+        campaign (CampaignModel): campaign object.
     """
 
     def __init__(self,
@@ -31,7 +33,8 @@ class UserModel(BaseModel):
                  ip_address = None,
                  session_token = None,
                  user_agent_string = None,
-                 metadata = None):
+                 metadata = None,
+                 campaign=None):
         """Constructor for the UserModel class"""
 
         # Initialize members of the class
@@ -42,6 +45,7 @@ class UserModel(BaseModel):
         self.session_token = session_token
         self.user_agent_string = user_agent_string
         self.metadata = metadata
+        self.campaign = campaign
 
         # Create a mapping from Model property names to API property names
         self.names = {
@@ -52,6 +56,7 @@ class UserModel(BaseModel):
             "session_token" : "session_token",
             "user_agent_string" : "user_agent_string",
             "metadata" : "metadata",
+            "campaign": "campaign",
         }
 
 
@@ -80,6 +85,7 @@ class UserModel(BaseModel):
             session_token = dictionary.get("session_token")
             user_agent_string = dictionary.get("user_agent_string")
             metadata = dictionary.get("metadata")
+            campaign = CampaignModel.from_dictionary(dictionary.get("campaign")) if dictionary.get("campaign") else None
             # Return an object of this model
             return cls(user_id,
                        company_id,
@@ -87,4 +93,5 @@ class UserModel(BaseModel):
                        ip_address,
                        session_token,
                        user_agent_string,
-                       metadata)
+                       metadata,
+                       campaign)
