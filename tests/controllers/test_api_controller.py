@@ -123,7 +123,8 @@ class ApiControllerTests(ControllerTestBase):
             company_id="67890",
             session_token="23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f",
             modified_time=datetime.utcnow(),
-            metadata=metadata)
+            metadata=metadata,
+            campaign=CampaignModel(utm_source="Newsletter", utm_medium="Email"))
 
         # Perform the API call through the SDK function
         self.controller.update_user(user_model)
@@ -162,7 +163,8 @@ class ApiControllerTests(ControllerTestBase):
         # Parameter for the API call
         company_model = CompanyModel(
             company_id="67890",
-            modified_time=datetime.utcnow())
+            modified_time=datetime.utcnow(),
+            campaign=CampaignModel(utm_source="Adwords", utm_medium="Twitter"))
 
         # Perform the API call through the SDK function
         self.controller.update_company(company_model)
