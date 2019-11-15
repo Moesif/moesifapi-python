@@ -134,7 +134,8 @@ user_model = UserModel(
     user_id = '12345',
     company_id = '67890',
     modified_time = datetime.utcnow(),
-    metadata = metadata)
+    metadata = metadata,
+    campaign=CampaignModel(utm_source="Newsletter", utm_medium="Email"))
 
 # Perform the API call through the SDK function
 api_client.update_user(user_model)
@@ -156,7 +157,8 @@ metadata = APIHelper.json_deserialize("""  {
 company_model = CompanyModel(
             company_id='67890',
             modified_time=datetime.utcnow(),
-            metadata=metadata)
+            metadata=metadata,
+            campaign=CampaignModel(utm_source="Adwords", utm_medium="Twitter"))
 
 # Perform the API call through the SDK function
 self.controller.update_company(company_model)
