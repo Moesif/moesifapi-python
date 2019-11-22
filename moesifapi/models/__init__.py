@@ -4,3 +4,4 @@ from .event_response_model import *
 from .status_model import *
 from .user_model import *
 from .company_model import *
+from .campaign_model import *
