@@ -21,6 +21,9 @@ class EventModel(BaseModel):
         session_token (string): End user's auth/session token
         tags (string): comma separated list of tags, see documentation
         user_id (string): End user's user_id string from your app
+        company_id (string): End user's company_id string from your app
+        metadata (object): Any custom data for the event.
+        direction (string): API direction, incoming or outgoing
 
     """
 
@@ -31,7 +34,8 @@ class EventModel(BaseModel):
                  tags = None,
                  user_id = None,
                  company_id=None,
-                 metadata = None):
+                 metadata = None,
+                 direction=None):
         """Constructor for the EventModel class"""
 
         # Initialize members of the class
@@ -42,6 +46,7 @@ class EventModel(BaseModel):
         self.user_id = user_id
         self.company_id = company_id
         self.metadata = metadata
+        self.direction = direction
 
         # Create a mapping from Model property names to API property names
         self.names = {
@@ -51,7 +56,8 @@ class EventModel(BaseModel):
             "tags" : "tags",
             "user_id" : "user_id",
             "company_id" : "company_id",
-            "metadata" : "metadata"
+            "metadata" : "metadata",
+            "direction": "direction"
         }
 
 
@@ -80,6 +86,7 @@ class EventModel(BaseModel):
             user_id = dictionary.get("user_id")
             company_id = dictionary.get("company_id")
             metadata = dictionary.get("metadata")
+            direction = dictionary.get("direction")
             # Return an object of this model
             return cls(request,
                        response,
@@ -87,4 +94,5 @@ class EventModel(BaseModel):
                        tags,
                        user_id,
                        company_id,
-                       metadata)
+                       metadata,
+                       direction)
