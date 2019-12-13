@@ -84,7 +84,8 @@ class ApiControllerTests(ControllerTestBase):
             user_id = "my_user_id",
             company_id = "my_company_id",
             session_token = "23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f",
-            metadata = metadata)
+            metadata = metadata,
+            direction="Incoming")
 
 
         # Perform the API call through the SDK function
