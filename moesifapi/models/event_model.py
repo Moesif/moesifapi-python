@@ -24,6 +24,7 @@ class EventModel(BaseModel):
         company_id (string): End user's company_id string from your app
         metadata (object): Any custom data for the event.
         direction (string): API direction, incoming or outgoing
+        weight (int): Weight of an API call
 
     """
 
@@ -35,7 +36,8 @@ class EventModel(BaseModel):
                  user_id = None,
                  company_id=None,
                  metadata = None,
-                 direction=None):
+                 direction=None,
+                 weight=None):
         """Constructor for the EventModel class"""
 
         # Initialize members of the class
@@ -47,6 +49,7 @@ class EventModel(BaseModel):
         self.company_id = company_id
         self.metadata = metadata
         self.direction = direction
+        self.weight = weight
 
         # Create a mapping from Model property names to API property names
         self.names = {
@@ -57,7 +60,8 @@ class EventModel(BaseModel):
             "user_id" : "user_id",
             "company_id" : "company_id",
             "metadata" : "metadata",
-            "direction": "direction"
+            "direction": "direction",
+            "weight": "weight"
         }
 
 
@@ -87,6 +91,7 @@ class EventModel(BaseModel):
             company_id = dictionary.get("company_id")
             metadata = dictionary.get("metadata")
             direction = dictionary.get("direction")
+            weight = dictionary.get("weight")
             # Return an object of this model
             return cls(request,
                        response,
@@ -95,4 +100,5 @@ class EventModel(BaseModel):
                        user_id,
                        company_id,
                        metadata,
-                       direction)
+                       direction,
+                       weight)
