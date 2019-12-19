@@ -117,51 +117,196 @@ api_client.create_event(event_model)
 api_client.create_event(my_api_event_model)
 ```
 
-### Update User
+## Update a Single User
 
-The api also let you update a user profile with custom metadata.
-The user_id is a required fields, all other fields are optional.
+Create or update a user profile in Moesif.
+The metadata field can be any customer demographic or other info you want to store.
+Only the `userId` field is required.
+For details, visit the [Python API Reference](https://www.moesif.com/docs/api?python#update-a-user).
 
 ```python
-metadata = APIHelper.json_deserialize("""  {
-        "email": "johndoe@email.com",
-        "name": "John Doe",
-        "custom": "testdata"
-    } """)
+from moesifapi.moesif_api_client import *
+from moesifapi.models import *
 
+api_client = MoesifAPIClient("YOUR_COLLECTOR_APPLICATION_ID").api
 
-user_model = UserModel(
-    user_id = '12345',
-    company_id = '67890',
-    modified_time = datetime.utcnow(),
-    metadata = metadata,
-    campaign=CampaignModel(utm_source="Newsletter", utm_medium="Email"))
+# Only user_id is required.
+# Campaign object is optional, but useful if you want to track ROI of acquisition channels
+# See https://www.moesif.com/docs/api#users for campaign schema
+# metadata can be any custom object
+user = {
+  'user_id': '12345',
+  'company_id': '67890', # If set, associate user with a company object
+  'campaign': {
+    'utm_source': 'google',
+    'utm_medium': 'cpc', 
+    'utm_campaign': 'adwords',
+    'utm_term': 'api+tooling',
+    'utm_content': 'landing'
+  },
+  'metadata': {
+    'email': 'john@acmeinc.com',
+    'first_name': 'John',
+    'last_name': 'Doe',
+    'title': 'Software Engineer',
+    'sales_info': {
+        'stage': 'Customer',
+        'lifetime_value': 24000,
+        'account_owner': 'mary@contoso.com'
+    },
+  }
+}
 
-# Perform the API call through the SDK function
-api_client.update_user(user_model)
-
+update_user = api_client.update_user(user)
 ```
 
-### Update Company
+## Update Users in Batch
 
-The api also let you update a company information with custom metadata.
-The company_id is a required field, all other fields are optional.
+Similar to UpdateUser, but used to update a list of users in one batch. 
+Only the `userId` field is required.
+For details, visit the [Python API Reference](https://www.moesif.com/docs/api?python#update-users-in-batch).
 
 ```python
-metadata = APIHelper.json_deserialize("""  {
-        "email": "pythonapiuser@email.com",
-        "name": "pythonapiuser",
-        "location": "United States"
-    } """)
+from moesifapi.moesif_api_client import *
+from moesifapi.models import *
 
-company_model = CompanyModel(
-            company_id='67890',
-            modified_time=datetime.utcnow(),
-            metadata=metadata,
-            campaign=CampaignModel(utm_source="Adwords", utm_medium="Twitter"))
+api_client = MoesifAPIClient("YOUR_COLLECTOR_APPLICATION_ID").api
 
-# Perform the API call through the SDK function
-self.controller.update_company(company_model)
+userA = {
+  'user_id': '12345',
+  'company_id': '67890', # If set, associate user with a company object
+  'metadata': {
+    'email': 'john@acmeinc.com',
+    'first_name': 'John',
+    'last_name': 'Doe',
+    'title': 'Software Engineer',
+    'sales_info': {
+        'stage': 'Customer',
+        'lifetime_value': 24000,
+        'account_owner': 'mary@contoso.com'
+    },
+  }
+}
+
+userB = {
+  'user_id': '54321',
+  'company_id': '67890', # If set, associate user with a company object
+  'metadata': {
+    'email': 'mary@acmeinc.com',
+    'first_name': 'Mary',
+    'last_name': 'Jane',
+    'title': 'Software Engineer',
+    'sales_info': {
+        'stage': 'Customer',
+        'lifetime_value': 48000,
+        'account_owner': 'mary@contoso.com'
+    },
+  }
+}
+update_users = api_client.update_users_batch([userA, userB])
+```
+
+## Update a Single Company
+
+Create or update a company profile in Moesif.
+The metadata field can be any company demographic or other info you want to store.
+Only the `companyId` field is required.
+For details, visit the [Python API Reference](https://www.moesif.com/docs/api?python#update-a-company).
+
+```python
+from moesifapi.moesif_api_client import *
+from moesifapi.models import *
+
+api_client = MoesifAPIClient("YOUR_COLLECTOR_APPLICATION_ID").api
+
+# Only company_id is required.
+# Campaign object is optional, but useful if you want to track ROI of acquisition channels
+# See https://www.moesif.com/docs/api#update-a-company for campaign schema
+# metadata can be any custom object
+company = {
+  'company_id': '12345',
+  'company_domain': 'acmeinc.com', # If domain is set, Moesif will enrich your profiles with publicly available info 
+  'campaign': {
+    'utm_source': 'google',
+    'utm_medium': 'cpc', 
+    'utm_campaign': 'adwords',
+    'utm_term': 'api+tooling',
+    'utm_content': 'landing'
+  },
+  'metadata': {
+    'org_name': 'Acme, Inc',
+    'plan_name': 'Free',
+    'deal_stage': 'Lead',
+    'mrr': 24000,
+    'demographics': {
+        'alexa_ranking': 500000,
+        'employee_count': 47
+    },
+  }
+}
+
+update_company = api_client.update_company(company)
+```
+
+## Update Companies in Batch
+
+Similar to updateCompany, but used to update a list of companies in one batch. 
+Only the `companyId` field is required.
+For details, visit the [Python API Reference](https://www.moesif.com/docs/api?python#update-companies-in-batch).
+
+
+```python
+from moesifapi.moesif_api_client import *
+from moesifapi.models import *
+
+api_client = MoesifAPIClient("YOUR_COLLECTOR_APPLICATION_ID").api
+
+# Only company_id is required.
+# Campaign object is optional, but useful if you want to track ROI of acquisition channels
+# See https://www.moesif.com/docs/api#update-a-company for campaign schema
+# metadata can be any custom object
+companies = [{
+  'company_id': '67890',
+  'company_domain': 'acmeinc.com', # If domain is set, Moesif will enrich your profiles with publicly available info 
+  'campaign': {
+    'utm_source': 'google',
+    'utm_medium': 'cpc', 
+    'utm_campaign': 'adwords',
+    'utm_term': 'api+tooling',
+    'utm_content': 'landing'
+  },
+  'metadata': {
+    'org_name': 'Acme, Inc',
+    'plan_name': 'Free',
+    'deal_stage': 'Lead',
+    'mrr': 24000,
+    'demographics': {
+        'alexa_ranking': 500000,
+        'employee_count': 47
+    },
+  }
+},
+{
+  'company_id': '09876',
+  'company_domain': 'contoso.com', # If domain is set, Moesif will enrich your profiles with publicly available info 
+  'campaign': {
+    'utm_source': 'facebook',
+    'utm_medium': 'cpc', 
+    'utm_campaign': 'retargeting'
+  },
+  'metadata': {
+    'org_name': 'Contoso, Inc',
+    'plan_name': 'Paid',
+    'deal_stage': 'Lead',
+    'mrr': 48000,
+    'demographics': {
+        'alexa_ranking': 500000,
+        'employee_count': 53
+    },
+  }
+}]
+
+update_company = api_client.update_companies(companies)
 ```
 
 ## How to test:
