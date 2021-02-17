@@ -11,5 +11,5 @@ class Configuration(object):
     BASE_URI = 'https://api.moesif.net'
 
     # Your Application Id for authentication/authorization
-    application_id = 'SET_ME';
-    version = '1.1.0'
+    application_id = 'SET_ME'
+    version = 'moesifapi-python/1.3.3'

@@ -51,7 +51,7 @@ class ApiController(BaseController):
         _headers = {
             'content-type': 'application/json; charset=utf-8',
             'X-Moesif-Application-Id': Configuration.application_id,
-            'User-Agent': 'moesifapi-python/' + Configuration.version,
+            'User-Agent': Configuration.version,
         }
 
         # Prepare the API call.
@@ -112,7 +112,7 @@ class ApiController(BaseController):
         _headers = {
             'content-type': 'application/json; charset=utf-8',
             'X-Moesif-Application-Id': Configuration.application_id,
-            'User-Agent': 'moesifapi-python/' + Configuration.version,
+            'User-Agent': Configuration.version,
         }
 
         # Prepare the API call.
@@ -172,7 +172,7 @@ class ApiController(BaseController):
         _headers = {
             'content-type': 'application/json; charset=utf-8',
             'X-Moesif-Application-Id': Configuration.application_id,
-            'User-Agent': 'moesifapi-python/' + Configuration.version,
+            'User-Agent': Configuration.version,
         }
 
         # Prepare the API call.
@@ -230,7 +230,7 @@ class ApiController(BaseController):
         _headers = {
             'content-type': 'application/json; charset=utf-8',
             'X-Moesif-Application-Id': Configuration.application_id,
-            'User-Agent': 'moesifapi-python/' + Configuration.version,
+            'User-Agent': Configuration.version,
         }
 
         # Prepare the API call.
@@ -341,7 +341,7 @@ class ApiController(BaseController):
         _headers = {
             'content-type': 'application/json; charset=utf-8',
             'X-Moesif-Application-Id': Configuration.application_id,
-            'User-Agent': 'moesifapi-python/' + Configuration.version,
+            'User-Agent': Configuration.version,
         }
 
         # Prepare the API call.
@@ -398,7 +398,7 @@ class ApiController(BaseController):
         _headers = {
             'content-type': 'application/json; charset=utf-8',
             'X-Moesif-Application-Id': Configuration.application_id,
-            'User-Agent': 'moesifapi-python/' + Configuration.version,
+            'User-Agent': Configuration.version,
         }
 
         # Prepare the API call.

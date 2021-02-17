@@ -36,4 +36,7 @@ class BaseController(object):
             
         """
         if (context.response.status_code < 200) or (context.response.status_code > 208): #[200,208] = HTTP OK
+            print("HTTP Response not ok")
+            print(context.request.__dict__)
+            print(context.response.status_code)
             raise APIException("HTTP response not OK.", context)
