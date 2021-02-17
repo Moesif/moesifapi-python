@@ -12,4 +12,4 @@ class Configuration(object):
 
     # Your Application Id for authentication/authorization
     application_id = 'SET_ME'
-    version = '1.3.3'
+    version = 'moesifapi-python/1.3.3'
