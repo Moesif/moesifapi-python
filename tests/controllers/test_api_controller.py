@@ -158,6 +158,15 @@ class ApiControllerTests(ControllerTestBase):
         self.assertIsNotNone(response["raw_body"])
         self.assertIsNotNone(response["headers"]["X-Moesif-Config-ETag"])
 
+    # Get Application configuration
+    def test_get_rules(self):
+        # Perform the API call through the SDK function
+        response = self.controller.get_governance_rules().__dict__
+
+        # Test Response code
+        self.assertEquals(self.response_catcher.response.status_code, 200)
+        self.assertIsNotNone(response["raw_body"])
+
     #  Add Single company via Injestion API
     def test_update_company(self):
         # Parameter for the API call
