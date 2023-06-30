@@ -25,7 +25,7 @@ class EventModel(BaseModel):
         metadata (object): Any custom data for the event.
         direction (string): API direction, incoming or outgoing
         weight (int): Weight of an API call
-
+        blocked_by (string): Any governance rule that applied to the event
     """
 
     def __init__(self,
@@ -37,7 +37,8 @@ class EventModel(BaseModel):
                  company_id=None,
                  metadata = None,
                  direction=None,
-                 weight=None):
+                 weight=None,
+                 blocked_by=None):
         """Constructor for the EventModel class"""
 
         # Initialize members of the class
@@ -50,6 +51,7 @@ class EventModel(BaseModel):
         self.metadata = metadata
         self.direction = direction
         self.weight = weight
+        self.blocked_by = blocked_by
 
         # Create a mapping from Model property names to API property names
         self.names = {
@@ -61,7 +63,8 @@ class EventModel(BaseModel):
             "company_id" : "company_id",
             "metadata" : "metadata",
             "direction": "direction",
-            "weight": "weight"
+            "weight": "weight",
+            "blocked_by": "blocked_by"
         }
 
 
@@ -92,6 +95,7 @@ class EventModel(BaseModel):
             metadata = dictionary.get("metadata")
             direction = dictionary.get("direction")
             weight = dictionary.get("weight")
+            blocked_by = dictionary.get("blocked_by")
             # Return an object of this model
             return cls(request,
                        response,
@@ -101,4 +105,5 @@ class EventModel(BaseModel):
                        company_id,
                        metadata,
                        direction,
-                       weight)
+                       weight,
+                       blocked_by)
