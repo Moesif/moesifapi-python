@@ -39,7 +39,8 @@ class EventModel(BaseModel):
                  metadata = None,
                  direction=None,
                  weight=None,
-                 blocked_by=None):
+                 blocked_by=None,
+                 transaction_id=uuid.uuid4()):
         """Constructor for the EventModel class"""
 
         # Initialize members of the class
@@ -53,7 +54,7 @@ class EventModel(BaseModel):
         self.direction = direction
         self.weight = weight
         self.blocked_by = blocked_by
-        self.transaction_id = uuid.uuid4()
+        self.transaction_id = transaction_id
 
         # Create a mapping from Model property names to API property names
         self.names = {
