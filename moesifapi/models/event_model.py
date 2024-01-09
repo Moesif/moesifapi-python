@@ -40,7 +40,7 @@ class EventModel(BaseModel):
                  direction=None,
                  weight=None,
                  blocked_by=None,
-                 transaction_id=uuid.uuid4()):
+                 transaction_id=str(uuid.uuid4())):
         """Constructor for the EventModel class"""
 
         # Initialize members of the class

@@ -39,7 +39,7 @@ class BaseController(object):
             
         """
         if (context.response.status_code < 200) or (context.response.status_code > 208): #[200,208] = HTTP OK
-            self.logger.error('HTTP Response not ok [response status: ' + str(context.response.status_code) +
-                              ' | header: ' + str(context.response.headers) +
-                              ' | raw_body: ' + context.response.raw_body)
+            self.logger.error('HTTP Response not ok [response status: ' +
+                              str(context.response.status_code) + ' | header: ' + str(context.response.headers)
+                              + ' | raw_body: ' + str(context.response.raw_body) + ']')
             raise APIException("HTTP response not OK.", context)
