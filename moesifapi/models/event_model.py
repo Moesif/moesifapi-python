@@ -8,6 +8,7 @@
 from .event_request_model import EventRequestModel
 from .event_response_model import EventResponseModel
 from .base_model import BaseModel
+import uuid
 
 class EventModel(BaseModel):
 
@@ -52,6 +53,7 @@ class EventModel(BaseModel):
         self.direction = direction
         self.weight = weight
         self.blocked_by = blocked_by
+        self.transaction_id = uuid.uuid4()
 
         # Create a mapping from Model property names to API property names
         self.names = {
@@ -64,7 +66,8 @@ class EventModel(BaseModel):
             "metadata" : "metadata",
             "direction": "direction",
             "weight": "weight",
-            "blocked_by": "blocked_by"
+            "blocked_by": "blocked_by",
+            "transaction_id": "transaction_id"
         }
 
 
@@ -96,6 +99,7 @@ class EventModel(BaseModel):
             direction = dictionary.get("direction")
             weight = dictionary.get("weight")
             blocked_by = dictionary.get("blocked_by")
+            transaction_id = dictionary.get("transaction_id")
             # Return an object of this model
             return cls(request,
                        response,
@@ -106,4 +110,6 @@ class EventModel(BaseModel):
                        metadata,
                        direction,
                        weight,
-                       blocked_by)
+                       blocked_by,
+                       transaction_id
+                       )
