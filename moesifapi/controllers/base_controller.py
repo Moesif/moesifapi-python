@@ -13,11 +13,10 @@ from ..http.http_context import HttpContext
 from ..http.http_request import HttpRequest
 from ..http.http_response import HttpResponse
 from ..http.requests_client import RequestsClient
-
-from ..api_logger import APILogger
+import logging
+logger = logging.getLogger(__name__)
 
 class BaseController(object):
-    logger = APILogger(__name__).get_logger()
 
     """All controllers inherit from this base class. It manages shared 
 	HTTP clients and global API errors."""
@@ -39,7 +38,7 @@ class BaseController(object):
             
         """
         if (context.response.status_code < 200) or (context.response.status_code > 208): #[200,208] = HTTP OK
-            self.logger.error('HTTP Response not ok [response status: ' +
+            logger.error('HTTP Response not ok [response status: ' +
                               str(context.response.status_code) + ' | header: ' + str(context.response.headers)
                               + ' | raw_body: ' + str(context.response.raw_body) + ']')
             raise APIException("HTTP response not OK.", context)
