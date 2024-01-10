@@ -13,6 +13,8 @@ from ..http.http_context import HttpContext
 from ..http.http_request import HttpRequest
 from ..http.http_response import HttpResponse
 from ..http.requests_client import RequestsClient
+import logging
+logger = logging.getLogger(__name__)
 
 class BaseController(object):
 
@@ -36,7 +38,7 @@ class BaseController(object):
             
         """
         if (context.response.status_code < 200) or (context.response.status_code > 208): #[200,208] = HTTP OK
-            print("HTTP Response not ok")
-            print(context.request.__dict__)
-            print(context.response.status_code)
+            logger.error('HTTP Response not ok [response status: ' +
+                              str(context.response.status_code) + ' | header: ' + str(context.response.headers)
+                              + ' | raw_body: ' + str(context.response.raw_body) + ']')
             raise APIException("HTTP response not OK.", context)
