@@ -6,7 +6,6 @@
 
 """
 
-import jsonpickle
 from .controller_test_base import *
 from moesifapi.models import *
 from datetime import *
@@ -91,7 +90,7 @@ class ApiControllerTests(ControllerTestBase):
         self.controller.create_event(event_model)
 
         # Test response code
-        self.assertEquals(self.response_catcher.response.status_code, 201)
+        self.assertEqual(self.response_catcher.response.status_code, 201)
 
     # Add Batched Events via Ingestion API
     def test_add_batched_events(self):
@@ -106,7 +105,7 @@ class ApiControllerTests(ControllerTestBase):
         self.controller.create_events_batch(body)
 
         # Test response code
-        self.assertEquals(self.response_catcher.response.status_code, 201)
+        self.assertEqual(self.response_catcher.response.status_code, 201)
 
     # Update Single User via Injestion API
     def test_update_user(self):
@@ -130,7 +129,7 @@ class ApiControllerTests(ControllerTestBase):
         self.controller.update_user(user_model)
 
         # Test response code
-        self.assertEquals(self.response_catcher.response.status_code, 201)
+        self.assertEqual(self.response_catcher.response.status_code, 201)
 
     # Update Batched Users via Ingestion API
     def test_update_users_batch(self):
@@ -146,7 +145,7 @@ class ApiControllerTests(ControllerTestBase):
         self.controller.update_users_batch(body)
 
         # Test Response code
-        self.assertEquals(self.response_catcher.response.status_code, 201)
+        self.assertEqual(self.response_catcher.response.status_code, 201)
 
     # Get Application configuration
     def test_get_app_config(self):
@@ -154,7 +153,7 @@ class ApiControllerTests(ControllerTestBase):
         response = self.controller.get_app_config().__dict__
 
         # Test Response code
-        self.assertEquals(self.response_catcher.response.status_code, 200)
+        self.assertEqual(self.response_catcher.response.status_code, 200)
         self.assertIsNotNone(response["raw_body"])
         self.assertIsNotNone(response["headers"]["X-Moesif-Config-ETag"])
 
@@ -164,7 +163,7 @@ class ApiControllerTests(ControllerTestBase):
         response = self.controller.get_governance_rules().__dict__
 
         # Test Response code
-        self.assertEquals(self.response_catcher.response.status_code, 200)
+        self.assertEqual(self.response_catcher.response.status_code, 200)
         self.assertIsNotNone(response["raw_body"])
 
     #  Add Single company via Injestion API
@@ -179,7 +178,7 @@ class ApiControllerTests(ControllerTestBase):
         self.controller.update_company(company_model)
 
         # Test Response code
-        self.assertEquals(self.response_catcher.response.status_code, 201)
+        self.assertEqual(self.response_catcher.response.status_code, 201)
 
     # Add Batched Companies via Ingestion API
     def test_update_companies_batch(self):
@@ -192,4 +191,35 @@ class ApiControllerTests(ControllerTestBase):
         self.controller.update_companies_batch(body)
 
         # Test Response code
-        self.assertEquals(self.response_catcher.response.status_code, 201)
+        self.assertEqual(self.response_catcher.response.status_code, 201)
+
+    # Add single subscription via Injestion API
+    def test_update_subscription(self):
+        # Parameter for the API call
+        subscription_model = SubscriptionModel(
+            subscription_id="sub_3456",
+            company_id="67890",
+            current_period_start=datetime.utcnow(),
+            current_period_end=datetime.utcnow() + timedelta(days=30),
+            status="active")
+
+        # Perform the API call through the SDK function
+        self.controller.update_subscription(subscription_model)
+
+        # Test Response code
+        self.assertEqual(self.response_catcher.response.status_code, 201)
+
+    # Add Batched Subscriptions via Ingestion API
+    def test_update_subscriptions_batch(self):
+        # Parameter for the API call
+        body = [SubscriptionModel(subscription_id="sub_3456", company_id="67890", current_period_start=datetime.utcnow(),
+                                  current_period_end=datetime.utcnow() + timedelta(days=30), status="active"),
+                SubscriptionModel(subscription_id="sub_34567", company_id="6789", current_period_start=datetime.utcnow(),
+                                  current_period_end=datetime.utcnow() + timedelta(days=30), status="active",
+                                  metadata=APIHelper.json_deserialize(""" {"string_field": "value_1", "number_field": 0 } """))]
+
+        # Perform the API call through the SDK function
+        self.controller.update_subscriptions_batch(body)
+
+        # Test Response code
+        self.assertEqual(self.response_catcher.response.status_code, 201)

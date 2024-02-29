@@ -19,7 +19,7 @@ class ControllerTestBase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Class method called once before running tests in a test class."""
-        cls.api_client = MoesifAPIClient("replace with your application id")
+        cls.api_client = MoesifAPIClient("eyJhcHAiOiI1NjU6NDYzIiwidmVyIjoiMi4xIiwib3JnIjoiNjI4OjM2MCIsImlhdCI6MTcwNjc0NTYwMH0.KTkq3jzf7vTTDeszWF39n8EiDNM5-DX0ld1ASvinoi4")
         cls.request_timeout = 30
         cls.assert_precision = 0.01
 
