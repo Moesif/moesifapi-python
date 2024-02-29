@@ -5,3 +5,4 @@ from .status_model import *
 from .user_model import *
 from .company_model import *
 from .campaign_model import *
+from .subscription_model import *
