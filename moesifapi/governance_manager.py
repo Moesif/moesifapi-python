@@ -113,9 +113,9 @@ def format_body_for_middleware(body):
 
 def prepare_request_fields(event_info, request_body):
   fields = {
-    'request.verb': event_info.method,
+    'request.verb': event_info.verb,
     'request.ip': event_info.ip_address,
-    'request.route': event_info.url,
+    'request.route': event_info.uri,
     'request.body.operationName': request_body.get('operationName', None) if request_body and isinstance(request_body, dict) else None
   }
 
