@@ -309,6 +309,84 @@ companies = [{
 update_company = api_client.update_companies(companies)
 ```
 
+## Update a Single Subscription
+
+Create or update a subscription profile in Moesif. The metadata field can store any subscription-related information you wish to keep. The `subscription_id`, `company_id`, and `status` fields are all required. This method is a convenient helper that calls the Moesif API library. For details, visit the [Python API Reference](https://www.moesif.com/docs/api?python#update-a-subscription).
+
+```python
+from moesifapi.moesif_api_client import *
+from moesifapi.models import *
+from datetime import datetime, timedelta
+
+api_client = MoesifAPIClient("YOUR_COLLECTOR_APPLICATION_ID").api
+
+# Required fields for a subscription update
+subscription = {
+  'subscription_id': 'sub_3456',
+  'company_id': '67890',
+  'current_period_start': datetime.utcnow(),
+  'current_period_end': datetime.utcnow() + timedelta(days=30),
+  'status': 'active',
+  # Optional metadata can be any custom object
+  'metadata': {
+    'string_field': 'value_1',
+    'number_field': 0,
+    'object_field': {
+      'field_1': 'value_1',
+      'field_2': 'value_2'
+    }
+  }
+}
+
+update_subscription = api_client.update_subscription(subscription)
+```
+
+## Update Subscriptions in Batch
+
+Similar to `updateSubscription`, but used to update a list of subscriptions in one batch. The `subscription_id`, `company_id`, and `status` fields are required for each subscription in the list. This method is a convenient helper that calls the Moesif API library. For details, visit the [Python API Reference](https://www.moesif.com/docs/api?python#update-subscriptions-in-batch).
+
+```python
+from moesifapi.moesif_api_client import *
+from moesifapi.models import *
+from datetime import datetime, timedelta
+
+api_client = MoesifAPIClient("YOUR_COLLECTOR_APPLICATION_ID").api
+
+# Required fields for subscription updates in a batch
+subscriptions = [{
+  'subscription_id': 'sub_3456',
+  'company_id': '67890',
+  'current_period_start': datetime.utcnow(),
+  'current_period_end': datetime.utcnow() + timedelta(days=30),
+  'status': 'active',
+  # Optional metadata can be any custom object
+  'metadata': {
+    'string_field': 'value_1',
+    'number_field': 0,
+    'object_field': {
+      'field_1': 'value_1',
+      'field_2': 'value_2'
+    }
+  }
+}, {
+  'subscription_id': 'sub_34567',
+  'company_id': '6789',
+  'current_period_start': datetime.utcnow(),
+  'current_period_end': datetime.utcnow() + timedelta(days=30),
+  'status': 'active',
+  'metadata': {
+    'string_field': 'value_1',
+    'number_field': 0,
+    'object_field': {
+      'field_1': 'value_1',
+      'field_2': 'value_2'
+    }
+  }
+}]
+
+update_subscriptions = api_client.update_subscriptions_batch(subscriptions)
+```
+
 ## How to test:
 
 You can test the SDK with automatically generated test
@@ -319,7 +397,7 @@ runner. You can run the tests as follows:
   2. From terminal/cmd navigate to the root directory of the SDK.
   3. Invoke 'pip install -r requirements.txt'
   4. Add your own application id to 'test/controllers/controller_test_base'
-  5. Invoke 'nosetests tests/controllers/test_api_controller.py'
+  5. Invoke 'pytest tests/controllers/test_api_controller.py'
 
   [ico-built-for]: https://img.shields.io/badge/built%20for-python-blue.svg
   [ico-version]: https://img.shields.io/pypi/v/moesifapi.svg
