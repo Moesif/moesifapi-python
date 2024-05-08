@@ -7,12 +7,21 @@
 """
 
 from .base_controller import *
-
+import gzip
 
 
 class ApiController(BaseController):
 
     """A Controller to access Endpoints in the moesifapi API."""
+
+    @classmethod
+    def generate_post_payload(cls, body, headers):
+        try:
+            payload = gzip.compress(APIHelper.json_serialize(body).encode('utf-8'))
+            headers['Content-Encoding'] = 'gzip'
+        except:
+            payload = APIHelper.json_serialize(body)
+        return payload, headers
 
     def __init__(self, http_client = None, http_call_back = None):
         """Constructor which allows a different HTTP client for this controller."""
@@ -54,8 +63,11 @@ class ApiController(BaseController):
             'User-Agent': Configuration.version,
         }
 
+        # Generate http payload
+        _body, _headers = self.generate_post_payload(body, _headers)
+
         # Prepare the API call.
-        _request = self.http_client.post(_query_url, headers=_headers, parameters=APIHelper.json_serialize(body))
+        _request = self.http_client.post(_query_url, headers=_headers, parameters=_body)
 
         # Invoke the on before request HttpCallBack if specified
         if self.http_call_back != None:
@@ -115,8 +127,11 @@ class ApiController(BaseController):
             'User-Agent': Configuration.version,
         }
 
+        # Generate http payload
+        _body, _headers = self.generate_post_payload(body, _headers)
+
         # Prepare the API call.
-        _request = self.http_client.post(_query_url, headers=_headers, parameters=APIHelper.json_serialize(body))
+        _request = self.http_client.post(_query_url, headers=_headers, parameters=_body)
 
         # Invoke the on before request HttpCallBack if specified
         if self.http_call_back != None:
