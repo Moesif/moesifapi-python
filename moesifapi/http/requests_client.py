@@ -7,7 +7,8 @@
 """
 
 import requests
-
+from requests.adapters import HTTPAdapter
+from ..configuration import Configuration
 from .http_client import HttpClient
 from .http_response import HttpResponse
 from .http_method_enum import HttpMethodEnum
@@ -17,6 +18,15 @@ class RequestsClient(HttpClient):
     """An implementation of HttpClient that uses Requests as its HTTP Client
     
     """
+
+    # connection pool here
+
+    def __init__(self):
+        self.session = requests.Session()
+        self.adapter = HTTPAdapter(pool_connections=Configuration.pool_connections, pool_maxsize=Configuration.pool_maxsize)
+        self.session.mount('http://', self.adapter)
+        self.session.mount('https://', self.adapter)
+
     def execute_as_string(self, request):
         """Execute a given HttpRequest to get a string response back
        
@@ -32,13 +42,14 @@ class RequestsClient(HttpClient):
         if request.username or request.password:
             auth=(request.username, request.password)
 
-        response = requests.request(HttpMethodEnum.to_string(request.http_method), 
-                                    request.query_url, 
-                                    headers=request.headers,
-                                    params=request.query_parameters, 
-                                    data=request.parameters,
-                                    files=request.files,
-                                    auth=auth)
+        # connection pool to make request
+        response = self.session.request(HttpMethodEnum.to_string(request.http_method),
+                                        request.query_url,
+                                        headers=request.headers,
+                                        params=request.query_parameters,
+                                        data=request.parameters,
+                                        files=request.files,
+                                        auth=auth)
 
         return self.convert_response(response, False)
     
