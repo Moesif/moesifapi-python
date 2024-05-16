@@ -115,9 +115,9 @@ class BatchedWorkerPool:
                 self.scheduler.start()
                 self.scheduler.add_job(
                     func=lambda: self.batcher.create_batch(),
-                    trigger=IntervalTrigger(seconds=2),
+                    trigger=IntervalTrigger(seconds=1),
                     id='moesif_event_job',
-                    name='Schedule event job every 2 second',
+                    name='Schedule event job every 1 second',
                     replace_existing=True)
 
                 # Avoid passing logging message to the ancestor loggers
