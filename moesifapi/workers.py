@@ -7,7 +7,6 @@ from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.events import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
 import atexit
 import logging
-import math
 from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)

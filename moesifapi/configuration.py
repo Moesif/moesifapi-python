@@ -12,7 +12,7 @@ class Configuration(object):
 
     # Your Application Id for authentication/authorization
     application_id = 'SET_ME'
-    version = 'moesifapi-python/1.4.7'
+    version = 'moesifapi-python/1.4.8'
 
     pool_connections = 10
     pool_maxsize = 10
