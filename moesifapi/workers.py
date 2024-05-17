@@ -66,15 +66,7 @@ class Worker:
     def send_events(self, batch_events):
         try:
             logger.debug("Sending events to Moesif")
-
-            for event in batch_events:
-                print(f"TransactionId, 3_send_start_batch_time, {event.transaction_id}, {time.time()}")
-
             batch_events_api_response = self.api_client.create_events_batch(batch_events)
-
-            for event in batch_events:
-                print(f"TransactionId, 4_send_end_batch_time, {event.transaction_id}, {time.time()}")
-
             # Update the configuration if necessary
             etag = batch_events_api_response.get("X-Moesif-Config-ETag")
             self.config.check_and_update(etag)
