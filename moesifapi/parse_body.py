@@ -24,6 +24,24 @@ class ParseBody:
     def base64_body(cls, body):
         return base64.standard_b64encode(body).decode(encoding="UTF-8"), "base64"
 
+    @staticmethod
+    def get_content_type(headers):
+        try:
+            return headers['content-type']
+        except KeyError:
+            try:
+                return headers['Content-Type']
+            except KeyError:
+                pass
+        return None
+
+    def is_multi_part_upload(self, headers):
+        if not headers:
+            return False
+
+        content_type_header = self.get_content_type(headers)
+        return bool(content_type_header and content_type_header.lower().startswith('multipart/form-data'))
+
     def parse_bytes_body(self, body, content_encoding, headers):
         try:
             if content_encoding is not None and "gzip" in content_encoding.lower() or \
