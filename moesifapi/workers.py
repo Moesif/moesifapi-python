@@ -37,16 +37,10 @@ class Batcher:
         batch_events = []
         try:
             while not self.event_queue.empty():
-                event_count = min(self.event_queue.qsize(), self.batch_size)
-                batch_events = [self.event_queue.get_nowait() for i in range(event_count)]
-                [print(f"TransactionId, 2_create_batch_time, {event.transaction_id}, {time.time()}") for event in batch_events]
-                break
-
-                # event = self.event_queue.get_nowait()
-                # print(f"TransactionId, 2_create_batch_time, {event.transaction_id}, {time.time()}")
-                # batch_events.append(event)
-                # if len(batch_events) == self.batch_size:
-                #     break
+                event = self.event_queue.get_nowait()
+                batch_events.append(event)
+                if len(batch_events) == self.batch_size:
+                    break
             if batch_events:
                 self.worker.send_events(batch_events)
             else:
