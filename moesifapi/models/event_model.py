@@ -40,7 +40,7 @@ class EventModel(BaseModel):
                  direction=None,
                  weight=None,
                  blocked_by=None,
-                 transaction_id=str(uuid.uuid4())):
+                 transaction_id=None):
         """Constructor for the EventModel class"""
 
         # Initialize members of the class
@@ -54,7 +54,10 @@ class EventModel(BaseModel):
         self.direction = direction
         self.weight = weight
         self.blocked_by = blocked_by
-        self.transaction_id = transaction_id
+        if transaction_id is None:
+            self.transaction_id = str(uuid.uuid4())
+        else:
+            self.transaction_id = transaction_id
 
         # Create a mapping from Model property names to API property names
         self.names = {
@@ -100,7 +103,7 @@ class EventModel(BaseModel):
             direction = dictionary.get("direction")
             weight = dictionary.get("weight")
             blocked_by = dictionary.get("blocked_by")
-            transaction_id = dictionary.get("transaction_id")
+            transaction_id = dictionary.get("transaction_id", str(uuid.uuid4()))
             # Return an object of this model
             return cls(request,
                        response,
