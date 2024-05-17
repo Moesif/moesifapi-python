@@ -4,8 +4,10 @@ import threading
 import time
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
+from apscheduler.events import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
 import atexit
 import logging
+import math
 from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
@@ -35,9 +37,16 @@ class Batcher:
         batch_events = []
         try:
             while not self.event_queue.empty():
-                batch_events.append(self.event_queue.get_nowait())
-                if len(batch_events) == self.batch_size:
-                    break
+                event_count = min(self.event_queue.qsize(), self.batch_size)
+                batch_events = [self.event_queue.get_nowait() for i in range(event_count)]
+                [print(f"TransactionId, 2_create_batch_time, {event.transaction_id}, {time.time()}") for event in batch_events]
+                break
+
+                # event = self.event_queue.get_nowait()
+                # print(f"TransactionId, 2_create_batch_time, {event.transaction_id}, {time.time()}")
+                # batch_events.append(event)
+                # if len(batch_events) == self.batch_size:
+                #     break
             if batch_events:
                 self.worker.send_events(batch_events)
             else:
@@ -63,7 +72,15 @@ class Worker:
     def send_events(self, batch_events):
         try:
             logger.debug("Sending events to Moesif")
+
+            for event in batch_events:
+                print(f"TransactionId, 3_send_start_batch_time, {event.transaction_id}, {time.time()}")
+
             batch_events_api_response = self.api_client.create_events_batch(batch_events)
+
+            for event in batch_events:
+                print(f"TransactionId, 4_send_end_batch_time, {event.transaction_id}, {time.time()}")
+
             # Update the configuration if necessary
             etag = batch_events_api_response.get("X-Moesif-Config-ETag")
             self.config.check_and_update(etag)
@@ -92,7 +109,6 @@ class BatchedWorkerPool:
         self.debug = debug
         self.scheduler = None
 
-        self.is_event_job_scheduled = None
         self.last_event_job_run_time = datetime(1970, 1, 1, 0, 0)  # Assuming job never ran, set it to epoch start time
 
         # Create an instance of batcher
@@ -107,11 +123,21 @@ class BatchedWorkerPool:
             if self.DEBUG:
                 logger.info(f"Error during shut down of the event scheduler. {str(ex)}")
 
+    # Function to listen to the send event job response
+    def moesif_event_listener(self, event):
+        if event.exception:
+            if self.DEBUG:
+                print('Error reading response from the event scheduled job')
+        else:
+            self.last_event_job_run_time = datetime.utcnow()
+
+
     def schedule_background_job(self):
         try:
             if not self.scheduler:
                 self.scheduler = BackgroundScheduler(daemon=True)
             if not self.scheduler.get_jobs():
+                self.scheduler.add_listener(self.moesif_event_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
                 self.scheduler.start()
                 self.scheduler.add_job(
                     func=lambda: self.batcher.create_batch(),
@@ -134,13 +160,11 @@ class BatchedWorkerPool:
         # Add event to the event queue if it's not full
         # do not block and return immediately, True if successful, False if not
         try:
-            if not self.is_event_job_scheduled and datetime.utcnow() > self.last_event_job_run_time + timedelta(minutes=5):
+            if datetime.utcnow() > self.last_event_job_run_time + timedelta(minutes=5):
                 try:
                     self.schedule_background_job()
-                    self.is_event_job_scheduled = True
                     self.last_event_job_run_time = datetime.utcnow()
                 except Exception as ex:
-                    self.is_event_job_scheduled = False
                     if self.debug:
                         logger.info(f'Error while starting the event scheduler job in background: {str(ex)}')
 
