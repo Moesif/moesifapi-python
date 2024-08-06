@@ -132,6 +132,7 @@ class BatchedWorkerPool:
                     replace_existing=True)
 
                 # Avoid passing logging message to the ancestor loggers
+                logging.getLogger('apscheduler').setLevel(logging.WARNING)
                 logging.getLogger('apscheduler.executors.default').setLevel(logging.WARNING)
                 logging.getLogger('apscheduler.executors.default').propagate = False
 
