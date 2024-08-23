@@ -126,14 +126,18 @@ class BatchedWorkerPool:
                 self.scheduler.start()
                 self.scheduler.add_job(
                     func=lambda: self.batcher.create_batch(),
-                    trigger=IntervalTrigger(seconds=1),
+                    trigger=IntervalTrigger(seconds=self.timeout),
                     id='moesif_event_job',
-                    name='Schedule event job every 1 second',
+                    name=f'Schedule event job every {self.timeout} second(s)',
                     replace_existing=True)
 
                 # Avoid passing logging message to the ancestor loggers
-                logging.getLogger('apscheduler').setLevel(logging.WARNING)
-                logging.getLogger('apscheduler.executors.default').setLevel(logging.WARNING)
+                if self.debug:
+                    logging.getLogger('apscheduler').setLevel(logging.WARNING)
+                    logging.getLogger('apscheduler.executors.default').setLevel(logging.WARNING)
+                else:
+                    logging.getLogger('apscheduler').setLevel(logging.ERROR)
+                    logging.getLogger('apscheduler.executors.default').setLevel(logging.ERROR)
                 logging.getLogger('apscheduler.executors.default').propagate = False
 
                 # Exit handler when exiting the app
@@ -213,7 +217,12 @@ class ConfigJobScheduler:
                     replace_existing=True)
 
                 # Avoid passing logging message to the ancestor loggers
-                logging.getLogger('apscheduler.executors.default').setLevel(logging.WARNING)
+                if self.debug:
+                    logging.getLogger('apscheduler').setLevel(logging.WARNING)
+                    logging.getLogger('apscheduler.executors.default').setLevel(logging.WARNING)
+                else:
+                    logging.getLogger('apscheduler').setLevel(logging.ERROR)
+                    logging.getLogger('apscheduler.executors.default').setLevel(logging.ERROR)
                 logging.getLogger('apscheduler.executors.default').propagate = False
 
                 # Exit handler when exiting the app
