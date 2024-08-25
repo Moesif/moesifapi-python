@@ -105,13 +105,13 @@ class BatchedWorkerPool:
             self.scheduler.remove_job('moesif_event_job')
             self.scheduler.shutdown()
         except Exception as ex:
-            if self.DEBUG:
+            if self.debug:
                 logger.info(f"Error during shut down of the event scheduler. {str(ex)}")
 
     # Function to listen to the send event job response
     def moesif_event_listener(self, event):
         if event.exception:
-            if self.DEBUG:
+            if self.debug:
                 print('Error reading response from the event scheduled job')
         else:
             self.last_event_job_run_time = datetime.utcnow()
@@ -190,7 +190,7 @@ class BatchedWorkerPool:
 class ConfigJobScheduler:
 
     def __init__(self, debug, config):
-        self.DEBUG = debug
+        self.debug = debug
         self.scheduler = None
         self.config = config
 
@@ -200,7 +200,7 @@ class ConfigJobScheduler:
             self.scheduler.remove_job('moesif_config_job')
             self.scheduler.shutdown()
         except Exception as ex:
-            if self.DEBUG:
+            if self.debug:
                 logger.info(f"Error during shut down of the config scheduler. {str(ex)}")
 
     def schedule_background_job(self):
@@ -228,5 +228,5 @@ class ConfigJobScheduler:
                 # Exit handler when exiting the app
                 atexit.register(lambda: self.exit_config_job)
         except Exception as ex:
-            if self.DEBUG:
+            if self.debug:
                 logger.info(f"Error when scheduling the config job. {str(ex)}")
