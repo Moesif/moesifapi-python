@@ -22,9 +22,9 @@ def refresh_session(func):
         try:
             result = func(self, *args, **kwargs)
         except requests.exceptions.ConnectionError as e:
-            # Recreate connection pool after closing it.
-            self.__close__connection_pool__()  # This closes the session and its connection pool
-            self.__create_connection_pool__()  # create connection pool before retrying
+            print(f"ConnectionError: Attempt to reestablish the connection")
+            # Attempt to reestablish the connection
+            self.__refresh_connection_pool__()
 
             # retry
             result = func(self, *args, **kwargs)
@@ -57,8 +57,11 @@ class RequestsClient(HttpClient):
         self.session.mount('http://', self.adapter)
         self.session.mount('https://', self.adapter)
 
-    def __close__connection_pool__(self):
-        self.session.close()
+    def __refresh_connection_pool__(self):
+        # Attempt to reestablish the connection.
+        # clear closes all open connections - leaves in-flight connections, but it will not be re-used after completion.
+        # It automatically opens a new ConnectionPool if no open connections exist for the request.
+        self.adapter.poolmanager.clear()
 
     def __init__(self):
         self.__create_connection_pool__()
