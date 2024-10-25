@@ -65,7 +65,7 @@ class ApiControllerTests(ControllerTestBase):
     		}""")
 
 
-        event_req = EventRequestModel(time = datetime.utcnow() - timedelta(seconds=1),
+        event_req = EventRequestModel(time = datetime.now(timezone.utc) - timedelta(seconds=1),
             uri = "https://api.acmeinc.com/items/reviews?&page=0&page_size=12&region[]=Overig&sort=relevance",
             verb = "PATCH",
             api_version = "1.1.0",
@@ -73,7 +73,7 @@ class ApiControllerTests(ControllerTestBase):
             headers = req_headers,
             body = req_body)
 
-        event_rsp = EventResponseModel(time = datetime.utcnow(),
+        event_rsp = EventResponseModel(time = datetime.now(timezone.utc),
             status = 200,
             headers = rsp_headers,
             body = rsp_body)
@@ -98,8 +98,8 @@ class ApiControllerTests(ControllerTestBase):
         body = APIHelper.json_deserialize('[{ 	"metadata": { "foo" : "bar" },	"request": { 						"time": "2016-09-09T04:45:42.914", 						"uri": "https://api.acmeinc.com/items/reviews/", 						"verb": "PATCH", 						"api_version": "1.1.0", 						"ip_address": "61.48.220.123", 						"headers": { 							"Host": "api.acmeinc.com", 							"Accept": "*/*", 							"Connection": "Keep-Alive", 							"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 5.0.2; C6906 Build/14.5.A.0.242)", 							"Content-Type": "application/json", 							"Content-Length": "126", 							"Accept-Encoding": "gzip" 						}, 						"body": { 							"items": [ 								{ 									"direction_type": 1, 									"discovery_id": "fwfrf", 									"liked": false 								}, 								{ 									"direction_type": 2, 									"discovery_id": "d43d3f", 									"liked": true 								} 							] 						} 					}, 					"response": { 						"time": "2016-09-09T04:45:42.914", 						"status": 500, 						"headers": { 							"Date": "Tue, 23 Aug 2016 23:46:49 GMT", 							"Vary": "Accept-Encoding", 							"Pragma": "no-cache", 							"Expires": "-1", 							"Content-Type": "application/json; charset=utf-8", 							"X-Powered-By": "ARR/3.0", 							"Cache-Control": "no-cache", 							"Arr-Disable-Session-Affinity": "true" 						}, 						"body": { 							"Error": "InvalidArgumentException", 							"Message": "Missing field field_a" 						} 					}, 					"user_id": "mndug437f43", 					"session_token": "23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f" 					 }, { 					"request": { 						"time": "2016-09-09T04:46:42.914", 						"uri": "https://api.acmeinc.com/items/reviews/", 						"verb": "PATCH", 						"api_version": "1.1.0", 						"ip_address": "61.48.220.123", 						"headers": { 							"Host": "api.acmeinc.com", 							"Accept": "*/*", 							"Connection": "Keep-Alive", 							"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 5.0.2; C6906 Build/14.5.A.0.242)", 							"Content-Type": "application/json", 							"Content-Length": "126", 							"Accept-Encoding": "gzip" 						}, 						"body": { 							"items": [ 								{ 									"direction_type": 1, 									"discovery_id": "fwfrf", 									"liked": false 								}, 								{ 									"direction_type": 2, 									"discovery_id": "d43d3f", 									"liked": true 								} 							] 						} 					}, 					"response": { 						"time": "2016-09-09T04:46:42.914", 						"status": 500, 						"headers": { 							"Date": "Tue, 23 Aug 2016 23:46:49 GMT", 							"Vary": "Accept-Encoding", 							"Pragma": "no-cache", 							"Expires": "-1", 							"Content-Type": "application/json; charset=utf-8", 							"X-Powered-By": "ARR/3.0", 							"Cache-Control": "no-cache", 							"Arr-Disable-Session-Affinity": "true" 						}, 						"body": { 							"Error": "InvalidArgumentException", 							"Message": "Missing field field_a" 						} 					}, 					"user_id": "mndug437f43", 					"session_token": "23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f" 					 }, { 					"request": { 						"time": "2016-09-09T04:47:42.914", 						"uri": "https://api.acmeinc.com/items/reviews/", 						"verb": "PATCH", 						"api_version": "1.1.0", 						"ip_address": "61.48.220.123", 						"headers": { 							"Host": "api.acmeinc.com", 							"Accept": "*/*", 							"Connection": "Keep-Alive", 							"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 5.0.2; C6906 Build/14.5.A.0.242)", 							"Content-Type": "application/json", 							"Content-Length": "126", 							"Accept-Encoding": "gzip" 						}, 						"body": { 							"items": [ 								{ 									"direction_type": 1, 									"discovery_id": "fwfrf", 									"liked": false 								}, 								{ 									"direction_type": 2, 									"discovery_id": "d43d3f", 									"liked": true 								} 							] 						} 					}, 					"response": { 						"time": "2016-09-09T04:47:42.914", 						"status": 500, 						"headers": { 							"Date": "Tue, 23 Aug 2016 23:46:49 GMT", 							"Vary": "Accept-Encoding", 							"Pragma": "no-cache", 							"Expires": "-1", 							"Content-Type": "application/json; charset=utf-8", 							"X-Powered-By": "ARR/3.0", 							"Cache-Control": "no-cache", 							"Arr-Disable-Session-Affinity": "true" 						}, 						"body": { 							"Error": "InvalidArgumentException", 							"Message": "Missing field field_a" 						} 					}, 					"user_id": "mndug437f43", 					"session_token": "23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f" 					 }, { 					"request": { 						"time": "2016-09-09T04:48:42.914", 						"uri": "https://api.acmeinc.com/items/reviews/", 						"verb": "PATCH", 						"api_version": "1.1.0", 						"ip_address": "61.48.220.123", 						"headers": { 							"Host": "api.acmeinc.com", 							"Accept": "*/*", 							"Connection": "Keep-Alive", 							"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 5.0.2; C6906 Build/14.5.A.0.242)", 							"Content-Type": "application/json", 							"Content-Length": "126", 							"Accept-Encoding": "gzip" 						}, 						"body": { 							"items": [ 								{ 									"direction_type": 1, 									"discovery_id": "fwfrf", 									"liked": false 								}, 								{ 									"direction_type": 2, 									"discovery_id": "d43d3f", 									"liked": true 								} 							] 						} 					}, 					"response": { 						"time": "2016-09-09T04:48:42.914", 						"status": 500, 						"headers": { 							"Date": "Tue, 23 Aug 2016 23:46:49 GMT", 							"Vary": "Accept-Encoding", 							"Pragma": "no-cache", 							"Expires": "-1", 							"Content-Type": "application/json; charset=utf-8", 							"X-Powered-By": "ARR/3.0", 							"Cache-Control": "no-cache", 							"Arr-Disable-Session-Affinity": "true" 						}, 						"body": { 							"Error": "InvalidArgumentException", 							"Message": "Missing field field_a" 						} 					}, 					"user_id": "mndug437f43", 					"session_token": "exfzweachxjgznvKUYrxFcxv]s98y18cx98q3yhwmnhcfx43f" 					 }, { 					"request": { 						"time": "2016-09-09T04:49:42.914", 						"uri": "https://api.acmeinc.com/items/reviews/", 						"verb": "PATCH", 						"api_version": "1.1.0", 						"ip_address": "61.48.220.123", 						"headers": { 							"Host": "api.acmeinc.com", 							"Accept": "*/*", 							"Connection": "Keep-Alive", 							"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 5.0.2; C6906 Build/14.5.A.0.242)", 							"Content-Type": "application/json", 							"Content-Length": "126", 							"Accept-Encoding": "gzip" 						}, 						"body": { 							"items": [ 								{ 									"direction_type": 1, 									"discovery_id": "fwfrf", 									"liked": false 								}, 								{ 									"direction_type": 2, 									"discovery_id": "d43d3f", 									"liked": true 								} 							] 						} 					}, 					"response": { 						"time": "2016-09-09T04:49:42.914", 						"status": 500, 						"headers": { 							"Date": "Tue, 23 Aug 2016 23:46:49 GMT", 							"Vary": "Accept-Encoding", 							"Pragma": "no-cache", 							"Expires": "-1", 							"Content-Type": "application/json; charset=utf-8", 							"X-Powered-By": "ARR/3.0", 							"Cache-Control": "no-cache", 							"Arr-Disable-Session-Affinity": "true" 						}, 						"body": { 							"Error": "InvalidArgumentException", 							"Message": "Missing field field_a" 						} 					}, 					"user_id": "mndug437f43", 					"session_token": "23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f" 					 }, { 					"request": { 						"time": "2016-09-09T04:50:42.914", 						"uri": "https://api.acmeinc.com/items/reviews/", 						"verb": "PATCH", 						"api_version": "1.1.0", 						"ip_address": "61.48.220.123", 						"headers": { 							"Host": "api.acmeinc.com", 							"Accept": "*/*", 							"Connection": "Keep-Alive", 							"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 5.0.2; C6906 Build/14.5.A.0.242)", 							"Content-Type": "application/json", 							"Content-Length": "126", 							"Accept-Encoding": "gzip" 						}, 						"body": { 							"items": [ 								{ 									"direction_type": 1, 									"discovery_id": "fwfrf", 									"liked": false 								}, 								{ 									"direction_type": 2, 									"discovery_id": "d43d3f", 									"liked": true 								} 							] 						} 					}, 					"response": { 						"time": "2016-09-09T04:50:42.914", 						"status": 500, 						"headers": { 							"Date": "Tue, 23 Aug 2016 23:46:49 GMT", 							"Vary": "Accept-Encoding", 							"Pragma": "no-cache", 							"Expires": "-1", 							"Content-Type": "application/json; charset=utf-8", 							"X-Powered-By": "ARR/3.0", 							"Cache-Control": "no-cache", 							"Arr-Disable-Session-Affinity": "true" 						}, 						"body": { 							"Error": "InvalidArgumentException", 							"Message": "Missing field field_a" 						} 					}, 					"user_id": "recvreedfef", 					"session_token": "xcvkrjmcfghwuignrmcmhxdhaaezse4w]s98y18cx98q3yhwmnhcfx43f" 					 } ]', EventModel.from_dictionary)
 
         for val in body:
-            val.request.time = datetime.utcnow() - timedelta(seconds=1)
-            val.response.time = datetime.utcnow()
+            val.request.time = datetime.now(timezone.utc) - timedelta(seconds=1)
+            val.response.time = datetime.now(timezone.utc)
 
         # Perform the API call through the SDK function
         self.controller.create_events_batch(body)
@@ -121,7 +121,7 @@ class ApiControllerTests(ControllerTestBase):
             user_id="12345",
             company_id="67890",
             session_token="23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f",
-            modified_time=datetime.utcnow(),
+            modified_time=datetime.now(timezone.utc),
             metadata=metadata,
             campaign=CampaignModel(utm_source="Newsletter", utm_medium="Email"))
 
@@ -134,9 +134,9 @@ class ApiControllerTests(ControllerTestBase):
     # Update Batched Users via Ingestion API
     def test_update_users_batch(self):
         # Parameter for the API call
-        body = [UserModel(user_id="1234", company_id="6789", modified_time=datetime.utcnow(),
+        body = [UserModel(user_id="1234", company_id="6789", modified_time=datetime.now(timezone.utc),
                           session_token="23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f", ),
-                UserModel(user_id="12345", company_id="67890", modified_time=datetime.utcnow(),
+                UserModel(user_id="12345", company_id="67890", modified_time=datetime.now(timezone.utc),
                           session_token="23jdf0owekfmcn4u3qypxg09w4d8ayrcdx8nu2ng]s98y18cx98q3yhwmnhcfx43f",
                           metadata=APIHelper.json_deserialize(""" {"email": "pythonapiuser@email.com",
                                 "name": "pythonapiuser", "string_field": "value_1", "number_field": 0 } """))]
@@ -171,7 +171,7 @@ class ApiControllerTests(ControllerTestBase):
         # Parameter for the API call
         company_model = CompanyModel(
             company_id="67890",
-            modified_time=datetime.utcnow(),
+            modified_time=datetime.now(timezone.utc),
             campaign=CampaignModel(utm_source="Adwords", utm_medium="Twitter"))
 
         # Perform the API call through the SDK function
@@ -183,8 +183,8 @@ class ApiControllerTests(ControllerTestBase):
     # Add Batched Companies via Ingestion API
     def test_update_companies_batch(self):
         # Parameter for the API call
-        body = [CompanyModel(company_id="67890", modified_time=datetime.utcnow(), company_domain="moesif"),
-                CompanyModel(company_id="6789", modified_time=datetime.utcnow(), company_domain="moesif",
+        body = [CompanyModel(company_id="67890", modified_time=datetime.now(timezone.utc), company_domain="moesif"),
+                CompanyModel(company_id="6789", modified_time=datetime.now(timezone.utc), company_domain="moesif",
                              metadata=APIHelper.json_deserialize(""" {"string_field": "value_1", "number_field": 0 } """))]
 
         # Perform the API call through the SDK function
@@ -199,8 +199,8 @@ class ApiControllerTests(ControllerTestBase):
         subscription_model = SubscriptionModel(
             subscription_id="sub_3456",
             company_id="67890",
-            current_period_start=datetime.utcnow(),
-            current_period_end=datetime.utcnow() + timedelta(days=30),
+            current_period_start=datetime.now(timezone.utc),
+            current_period_end=datetime.now(timezone.utc) + timedelta(days=30),
             status="active")
 
         # Perform the API call through the SDK function
@@ -212,10 +212,10 @@ class ApiControllerTests(ControllerTestBase):
     # Add Batched Subscriptions via Ingestion API
     def test_update_subscriptions_batch(self):
         # Parameter for the API call
-        body = [SubscriptionModel(subscription_id="sub_3456", company_id="67890", current_period_start=datetime.utcnow(),
-                                  current_period_end=datetime.utcnow() + timedelta(days=30), status="active"),
-                SubscriptionModel(subscription_id="sub_34567", company_id="6789", current_period_start=datetime.utcnow(),
-                                  current_period_end=datetime.utcnow() + timedelta(days=30), status="active",
+        body = [SubscriptionModel(subscription_id="sub_3456", company_id="67890", current_period_start=datetime.now(timezone.utc),
+                                  current_period_end=datetime.now(timezone.utc) + timedelta(days=30), status="active"),
+                SubscriptionModel(subscription_id="sub_34567", company_id="6789", current_period_start=datetime.now(timezone.utc),
+                                  current_period_end=datetime.now(timezone.utc) + timedelta(days=30), status="active",
                                   metadata=APIHelper.json_deserialize(""" {"string_field": "value_1", "number_field": 0 } """))]
 
         # Perform the API call through the SDK function
