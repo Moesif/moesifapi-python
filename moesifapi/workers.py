@@ -65,10 +65,7 @@ class Worker:
     def send_events(self, batch_events):
         try:
             logger.debug("Sending events to Moesif")
-            batch_events_api_response = self.api_client.create_events_batch(batch_events)
-            # Update the configuration if necessary
-            etag = batch_events_api_response.get("X-Moesif-Config-ETag")
-            self.config.check_and_update(etag)
+            self.api_client.create_events_batch(batch_events)
             if self.debug:
                 logger.debug("Events sent successfully to Moesif")
         except Exception as ex:
