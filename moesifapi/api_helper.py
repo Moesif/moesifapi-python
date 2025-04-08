@@ -7,8 +7,7 @@
 """
 
 import re
-import jsonpickle
-import isodatetimehandler
+import json
 from requests.utils import quote
 from .models.base_model import BaseModel
 
@@ -33,52 +32,44 @@ class APIHelper(object):
 
         Returns:
             str: The JSON serialized string of the object.
-
         """
         if obj is None:
             return None
 
-        # Resolve any Names if it's one of our objects that needs to have this called on
         if isinstance(obj, list):
-            value = list()
-            for item in obj:
-                if isinstance(item, BaseModel):
-                    value.append(item.to_dictionary())
-                else:
-                    value.append(item)
-            obj = value
-        else:
-            if isinstance(obj, BaseModel):
-                obj = obj.to_dictionary()
+            obj = [
+                item.to_dictionary() if isinstance(item, BaseModel) else item
+                for item in obj
+            ]
+        elif isinstance(obj, BaseModel):
+            obj = obj.to_dictionary()
 
-        return jsonpickle.encode(obj, False)
+        return json.dumps(obj)
 
     @staticmethod
-    def json_deserialize(json, unboxing_function=None):
-        """JSON Deerialization of a given string.
+    def json_deserialize(json_str, unboxing_function= None):
+        """JSON Deserialization of a given string.
 
         Args:
-            json (str): The JSON serialized string to deserialize.
+            json_str (str): The JSON serialized string to deserialize.
+            unboxing_function (Callable, optional): A function to process the deserialized object.
 
         Returns:
-            dict: A dictionary representing the data contained in the
-                JSON serialized string.
-
+            Any: A dictionary, list, or processed object.
         """
-        if json is None:
+        if json_str is None:
             return None
 
         try:
-            decoded = jsonpickle.decode(json)
-        except:
-            return json
+            decoded = json.loads(json_str)
+        except json.JSONDecodeError:
+            return json_str
 
-        if unboxing_function == None:
+        if unboxing_function is None:
             return decoded
-        elif type(decoded) == list:
+        if isinstance(decoded, list):
             return [unboxing_function(element) for element in decoded]
-        else:
-            return unboxing_function(decoded)
+        return unboxing_function(decoded)
 
     @staticmethod
     def append_url_with_template_parameters(url,
