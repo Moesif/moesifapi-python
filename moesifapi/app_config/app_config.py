@@ -26,19 +26,17 @@ class AppConfig:
     def parse_configuration(self, config, debug):
         """Parse configuration object and return Etag, sample rate and last updated time"""
         try:
-            return config.headers.get("X-Moesif-Config-ETag"), json.loads(config.raw_body).get('sample_rate', 100), datetime.utcnow()
+            return config.headers.get("X-Moesif-Config-ETag"), None, datetime.utcnow()
         except:
             if debug:
                 logger.info('Error while parsing the configuration object, setting the sample rate to default')
             return None, 100, datetime.utcnow()
 
-    def get_sampling_percentage(self, event_data, config, user_id, company_id):
+    def get_sampling_percentage(self, event_data, config_body, user_id, company_id):
         """Get sampling percentage"""
 
-        if config is not None:
+        if config_body is not None:
             try:
-                config_body = json.loads(config.raw_body)
-
                 user_sample_rate = config_body.get('user_sample_rate', None)
 
                 company_sample_rate = config_body.get('company_sample_rate', None)
