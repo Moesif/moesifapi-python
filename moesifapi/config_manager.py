@@ -3,6 +3,7 @@ from readerwriterlock import rwlock
 from datetime import datetime, timedelta
 from .exceptions.api_exception import *
 import logging
+import json
 from .governance_manager import GovernanceRulesManager
 
 logger = logging.getLogger(__name__)
@@ -26,6 +27,7 @@ class ConfigUpdateManager:
         self._lock = rwlock.RWLockFairD()
         self.current_etag = None
         self.config = None
+        self.config_parsed_body = {}
         self.last_updated_time = datetime.utcnow() - timedelta(minutes=self.MAX_ETAG_REFRESH_TIME_IN_MIN)
         self.__init_config__()
 
@@ -80,6 +82,7 @@ class ConfigUpdateManager:
             self.current_etag = new_etag
             if config is not None:
                 self.config = config
+                self.config_parsed_body = json.loads(config.raw_body)
                 self.last_updated_time = new_last_updated_time
                 if self.debug:
                     logger.debug(f"config update at: {str(self.last_updated_time)}")
@@ -88,13 +91,11 @@ class ConfigUpdateManager:
         """Get sampling percentage.
         This is called by the middleware main thread.
         """
-        with self._lock.gen_rlock():
-            return self.app_config.get_sampling_percentage(event_data, self.config, user_id, company_id)
+        return self.app_config.get_sampling_percentage(event_data, self.config_parsed_body, user_id, company_id)
 
 
     def have_governance_rules(self):
-        with self._lock.gen_rlock():
-            return self.govern_manager.has_rules()
+        return self.govern_manager.has_rules()
 
     def govern_request(self, requestData, userId, companyId, request_body, request_headers):
-        return self.govern_manager.govern_request(self.config, requestData, userId, companyId, request_body, request_headers)
+        return self.govern_manager.govern_request(self.config_parsed_body, requestData, userId, companyId, request_body, request_headers)

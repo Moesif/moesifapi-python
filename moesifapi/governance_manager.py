@@ -264,11 +264,9 @@ class GovernanceRulesManager:
     }
     return fields
 
-  def govern_request(self, config, event_info, user_id, company_id, request_body, request_headers):
+  def govern_request(self, config_json, event_info, user_id, company_id, request_body, request_headers):
 
     request_fields = self.prepare_request_fields(event_info, request_body)
-
-    config_json = json.loads(config.raw_body)
 
     response_holder = {
       'status': None,
